@@ -1,5 +1,7 @@
-from antenna_measurement_cnf.core import hello
+from importlib.metadata import version
 
-__version__ = "0.1.0"
+from antenna_measurement_cnf.core import wavelength, measurementDistance, probeRadius
 
-__all__ = ["hello"]
+__version__ = version("antenna-measurement-cnf")
+
+__all__ = ["wavelength", "measurementDistance", "probeRadius"]
