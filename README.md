@@ -5,7 +5,7 @@ A Python package for antenna measurement CNF utilities.
 ## Installation
 
 ```bash
-pip install antenna-measurement-cnf
+pip install AntennaMeasurementCNF
 ```
 
 ## Usage
@@ -13,9 +13,9 @@ pip install antenna-measurement-cnf
 As a library:
 
 ```python
-from antenna_measurement_cnf import hello
+from AntennaMeasurementCNF import probeRadius
 
-hello()  # prints "Hello"
+probeRadius(3, [0.4, 0.6, 1.195, 0.2])  # example usage
 ```
 
 As a command line tool:
@@ -99,7 +99,7 @@ AntennaMeasurementCNFCli
 .venv/Scripts/AntennaMeasurementCNFCli
 ```
 
-Expected output: `Hello`
+Expected output: `1.005`
 
 ### 6. Initialize git and connect the remote
 

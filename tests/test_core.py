@@ -1,5 +1,5 @@
 
-from antenna_measurement_cnf.core import wavelength, c, measurementDistance, probeRadius
+from AntennaMeasurementCNF.core import wavelength, c, measurementDistance, probeRadius
 
 def test_wavelength():
     frequency = 299792458  # ~300 MHz
