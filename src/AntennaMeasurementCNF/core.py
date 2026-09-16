@@ -1,3 +1,5 @@
+import math
+
 ################################################################################
 # Physical constants 
 ################################################################################
@@ -90,5 +92,52 @@ def probeRadius(ref_distance: float, lengths: list[float]) -> float:
   
   """
   return ref_distance - sum(lengths)
-  
+
+
+def scanSizeY(D: float, P: float, Z: float, R: float, Az_max: float, El_max: float ) -> float:
+    r"""Calculate the scan size in the Y direction based distances and desired far-field angle spans.
+
+    Parameters
+    ----------
+    D : float
+        Antenna height in meters.
+    P : float
+        Probe longest edge length in meters.
+    Z : float
+        Probe radius in meters.
+    R : float
+        Maximum radial extent in meters.
+    Az_max : float
+        Desired maximum azimuth angle in degrees.
+    El_max : float
+        Desired maximum elevation angle in degrees. Should be equal or less than 60
+
+    Returns
+    -------
+    float
+        Scan size in the Y direction in meters.
+
+    Notes
+    -----
+    The scan size in the Y direction is calculated based on the given parameters.
+    
+    .. math::
+
+        L_Y = D + P + 2 \cdot (Z - R \cdot \cos(\text{Az_max})) \cdot \tan(\text{El_max})
+
+    References
+    ----------
+    .. [1] *NSI 2000 (Near-field Edition), Version 4, Software Operating Manual*
+     
+    """
+    
+    # First validate the input parameters
+    if El_max > 60:
+      raise ValueError("El_max should be equal or less than 60 degrees.")
+    
+    # Z distance must greater than R (MRE)
+    if Z <= R:
+      raise ValueError("Z distance must be greater than R (MRE).")
+    
+    return D + P + 2*(Z-R*math.cos(math.radians(Az_max)))*math.tan(math.radians(El_max))
 
