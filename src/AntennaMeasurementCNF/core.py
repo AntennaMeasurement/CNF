@@ -141,3 +141,29 @@ def scanSizeY(D: float, P: float, Z: float, R: float, Az_max: float, El_max: flo
     
     return D + P + 2*(Z-R*math.cos(math.radians(Az_max)))*math.tan(math.radians(El_max))
 
+def stepSizeY(scanSize: float, frequency: float) -> float:
+    r"""Calculate the step size in the Y direction based on the scan size and frequency.
+
+    Parameters
+    ----------
+    scanSize : float
+        Scan size in the Y direction in meters.
+    frequency : float
+        Frequency in Hz.
+
+    Returns
+    -------
+    float
+        Step size in the Y direction in meters.
+
+    Notes
+    -----
+    The step size in the Y direction is typically calculated as a fraction of the wavelength corresponding to the given frequency.
+    
+    ..math::
+      \Delta_Y = \frac{\lambda}{2}
+    """
+    
+    dy = wavelength(frequency) / 2
+    
+    return round(math.floor(int(dy*1E3))/1E3,3)  # round to the lower nearest millimeter

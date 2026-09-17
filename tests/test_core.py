@@ -51,5 +51,18 @@ def test_scanSizeY():
     print(f"- Expected   : {expected}")
     print(f"- Calculated : {calculated}")
     assert calculated == expected
+    
+    
+def test_stepSizeY():
+    from AntennaMeasurementCNF.core import stepSizeY
+    scanSize  = 6.0
+    frequency = 1.2E9  # ~1.2 GHz
+    expected   = 0.124
+    calculated = stepSizeY(scanSize, frequency)
+    print("")
+    print(f"- Arguments  : scanSize={scanSize}, frequency={frequency}")
+    print(f"- Expected   : {expected}")
+    print(f"- Calculated : {calculated}")
+    assert calculated == expected
 
 
