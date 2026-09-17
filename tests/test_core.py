@@ -5,31 +5,51 @@ from AntennaMeasurementCNF.core import wavelength, c, measurementDistance, probe
 
 def test_wavelength():
     frequency = 299792458  # ~300 MHz
-    expected_wavelength = c / frequency
-    assert wavelength(frequency) == expected_wavelength
+    expected = c / frequency
+    calculated = wavelength(frequency)
+    print("")
+    print(f"- Arguments  :  frequency={frequency}")
+    print(f"- Expected   : {expected}")
+    print(f"- Calculated : {calculated}")
+    assert calculated == expected
     
 def test_measurementDistance():
     frequency = 299792458  # ~300 MHz
     coefficient = 5
-    expected_distance = coefficient * wavelength(frequency)
-    assert measurementDistance(frequency, coefficient) == expected_distance
+    expected = coefficient * wavelength(frequency)
+    calculated = measurementDistance(frequency, coefficient)
+    print("")
+    print(f"- Arguments  :  frequency={frequency}, coefficient={coefficient}")
+    print(f"- Expected   : {expected}")
+    print(f"- Calculated : {calculated}")
+    assert calculated == expected
     
 def test_probeRadius():
     ref_distance = 3
-    lengths = [0.4, 0.6, 1.195, 0.2]
-    expected_radius = ref_distance - sum(lengths)
-    assert probeRadius(ref_distance, lengths) == expected_radius
+    lengths      = [0.4, 0.6, 1.195, 0.2]
+    expected   = ref_distance - sum(lengths)
+    calculated = probeRadius(ref_distance, lengths)
+    print("")
+    print(f"- Arguments  : ref_distance={ref_distance}, lengths={lengths}")
+    print(f"- Expected   : {expected}")
+    print(f"- Calculated : {calculated}")
+    assert calculated == expected
     
 
 def test_scanSizeY():
     from AntennaMeasurementCNF.core import scanSizeY
-    D = 1.5
-    P = 0.5
-    Z = 2.0
-    R = 1.0
-    Az_max = 45
+    D = 0.2
+    P = 0.247
+    Z = 2.5
+    R = 0.6
+    Az_max = 180
     El_max = 60
-    expected_scan_size_y = D + P + 2*(Z-R*math.cos(math.radians(Az_max)))*math.tan(math.radians(El_max))
-    assert scanSizeY(D, P, Z, R, Az_max, El_max) == expected_scan_size_y
+    expected   = 11.186  # NSI2000 Output
+    calculated = round(scanSizeY(D, P, Z, R, Az_max, El_max), 3)
+    print("")
+    print(f"- Arguments  : D={D}, P={P}, Z={Z}, R={R}, Az_max={Az_max}, El_max={El_max}")
+    print(f"- Expected   : {expected}")
+    print(f"- Calculated : {calculated}")
+    assert calculated == expected
 
 
