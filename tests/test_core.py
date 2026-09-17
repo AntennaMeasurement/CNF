@@ -55,14 +55,25 @@ def test_scanSizeY():
     
 def test_stepSizeY():
     from AntennaMeasurementCNF.core import stepSizeY
-    scanSize  = 6.0
+    scan_size  = 6.0
     frequency = 1.2E9  # ~1.2 GHz
     expected   = 0.124
-    calculated = stepSizeY(scanSize, frequency)
+    calculated = stepSizeY(scan_size, frequency)
     print("")
-    print(f"- Arguments  : scanSize={scanSize}, frequency={frequency}")
+    print(f"- Arguments  : scan_size={scan_size}, frequency={frequency/1E9} GHz")
     print(f"- Expected   : {expected}")
     print(f"- Calculated : {calculated}")
     assert calculated == expected
 
 
+def test_samplingCountY():
+    from AntennaMeasurementCNF.core import samplingCountY
+    scan_size  = 6.0
+    frequency =  1.2E9  # ~1.2 GHz
+    expected   = 51  # Based on step size of 0.124 m
+    calculated = samplingCountY(scan_size, frequency)
+    print("")
+    print(f"- Arguments  : scan_size={scan_size}, frequency={frequency/1E9} GHz")
+    print(f"- Expected   : {expected}")
+    print(f"- Calculated : {calculated}")
+    assert calculated == expected

@@ -141,12 +141,12 @@ def scanSizeY(D: float, P: float, Z: float, R: float, Az_max: float, El_max: flo
     
     return D + P + 2*(Z-R*math.cos(math.radians(Az_max)))*math.tan(math.radians(El_max))
 
-def stepSizeY(scanSize: float, frequency: float) -> float:
+def stepSizeY(scan_size: float, frequency: float) -> float:
     r"""Calculate the step size in the Y direction based on the scan size and frequency.
 
     Parameters
     ----------
-    scanSize : float
+    scan_size : float
         Scan size in the Y direction in meters.
     frequency : float
         Frequency in Hz.
@@ -167,3 +167,37 @@ def stepSizeY(scanSize: float, frequency: float) -> float:
     dy = wavelength(frequency) / 2
     
     return round(math.floor(int(dy*1E3))/1E3,3)  # round to the lower nearest millimeter
+  
+
+def samplingCountY(scan_size: float, frequency: float) -> int:
+    r"""Calculate the number of sampling points in the Y direction based on the scan size and frequency.
+
+    Parameters
+    ----------
+    scan_size : float
+        Scan size in the Y direction in meters.
+    frequency : float
+        Frequency in Hz.
+
+    Returns
+    -------
+    int
+        Number of sampling points in the Y direction.
+
+    Notes
+    -----
+    The number of sampling points is calculated as the scan size divided by the step size in the Y direction.
+    
+    .. math::
+      N_Y = \frac{2 \cdot \lceil L_Y / 2 \rceil}{\Delta_Y} + 1
+    
+    """
+    
+    step_size_mm   = int(stepSizeY(scan_size, frequency) * 1E3)
+    scan_length_mm = math.ceil(scan_size * 1E3)
+    
+    half_scan_length_mm = scan_length_mm / 2 if scan_length_mm%2 == 0 else (scan_length_mm + 1) / 2
+    if half_scan_length_mm % step_size_mm > 0:
+      half_scan_length_mm = half_scan_length_mm + (step_size_mm - half_scan_length_mm % step_size_mm)
+        
+    return 2*int(half_scan_length_mm / step_size_mm)+1
