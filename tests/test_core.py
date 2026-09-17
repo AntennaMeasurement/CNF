@@ -77,3 +77,29 @@ def test_samplingCountY():
     print(f"- Expected   : {expected}")
     print(f"- Calculated : {calculated}")
     assert calculated == expected
+    
+def test_stepSizeAzimuth():
+    from AntennaMeasurementCNF.core import stepSizeAzimuth
+    frequency =  1.2E9  # ~1.2 GHz
+    mre       = 0.6
+    expected  = 6
+    calculated = stepSizeAzimuth(frequency, mre)
+    print("")
+    print(f"- Arguments  : frequency={frequency/1E9} GHz, mre={mre}")
+    print(f"- Expected   : {expected}")
+    print(f"- Calculated : {calculated}")
+    assert calculated == expected
+
+
+def test_samplingCountAzimuth():
+    from AntennaMeasurementCNF.core import samplingCountAzimuth
+    Az_max    = 180
+    frequency = 1.2E9  # ~1.2 GHz
+    mre       = 0.6
+    expected  = 61  # Based on step size of 6 degrees
+    calculated = samplingCountAzimuth(Az_max, frequency, mre)
+    print("")
+    print(f"- Arguments  : Az_max={Az_max}, frequency={frequency/1E9} GHz, mre={mre}")
+    print(f"- Expected   : {expected}")
+    print(f"- Calculated : {calculated}")
+    assert calculated == expected
