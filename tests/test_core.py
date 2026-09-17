@@ -1,6 +1,4 @@
 
-import math
-
 from AntennaMeasurementCNF.core import wavelength, c, measurementDistance, probeRadius
 
 def test_wavelength():
